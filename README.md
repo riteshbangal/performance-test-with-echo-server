@@ -34,12 +34,17 @@ kubectl apply -f echo-server-service.yaml
 
 The service is exposed externally on port 80.
 
+### Use Port Forwarding for Local Testing:
+If you still need to test the service locally, you can use kubectl port-forward to forward a local port to the LoadBalancer service:
+
+```bash
+kubectl port-forward service/echo-server-service 8080:80
+```
+
 ### Test the Echo Server
 Once the deployment is successful, you can test the echo server by sending a request:
 
 ```bash
-curl http://<external-ip>/ -d "Hello, echo-server!"
-
-while true; do  curl localhost; echo "Success"; sleep 1; done
-while true; do  curl http://localhost/perf_test; echo "Success"; sleep 1; done
+while true; do  curl localhost:8080; echo "Success"; sleep 1; done
+while true; do  curl http://localhost:8080/perf_test; echo "Success"; sleep 1; done
 ```
