@@ -13,3 +13,7 @@ env/
 # Miscellaneous
 *.log
 *.DS_Store
+
+# Gatling 
+gatling-bundle-3.10.3/target
+gatling-bundle-3.10.3/results
