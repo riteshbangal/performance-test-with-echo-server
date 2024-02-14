@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server-deployment
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: echo-server
+  template:
+    metadata:
+      labels:
+        app: echo-server
+    spec:
+      containers:
+      - name: echo-server
+        image: 314201/echo-server
+        ports:
+        - containerPort: 8080
