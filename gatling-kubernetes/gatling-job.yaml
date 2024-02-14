@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gatling-test-job
+  namespace: poc
+spec:
+  template:
+    spec:
+      containers:
+      - name: gatling-test
+        image: 314201/gatling-test:latest
+        imagePullPolicy: Always
+      restartPolicy: Never
