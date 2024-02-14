@@ -39,4 +39,7 @@ Once the deployment is successful, you can test the echo server by sending a req
 
 ```bash
 curl http://<external-ip>/ -d "Hello, echo-server!"
+
+while true; do  curl localhost; echo "Success"; sleep 1; done
+while true; do  curl http://localhost/perf_test; echo "Success"; sleep 1; done
 ```

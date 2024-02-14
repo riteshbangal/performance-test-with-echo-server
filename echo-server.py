@@ -1,20 +1,21 @@
-import socket
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import logging
 
-HOST = '0.0.0.0'
-PORT = 8080
+class MyHandler(SimpleHTTPRequestHandler):
+    protocol_version = 'HTTP/1.0'
 
-def start_echo_server():
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind((HOST, PORT))
-        s.listen()
-        print(f"Echo server listening on {HOST}:{PORT}")
-        while True:
-            conn, addr = s.accept()
-            with conn:
-                print(f"Connected by {addr}")
-                data = conn.recv(1024)
-                print(f"Received: {data.decode('utf-8')}")
-                conn.sendall(data)
+    def do_GET(self):
+        # Customize the response for a GET request
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        response = b"Custom Server Response: Hello, client!"
+        self.wfile.write(response)
+        self.log_message('Request received and served: %s', self.requestline)
+        logging.info('Request received and served: %s', self.requestline)
 
 if __name__ == "__main__":
-    start_echo_server()
+    logging.basicConfig(level=logging.DEBUG)
+    with HTTPServer(('0.0.0.0', 8080), MyHandler) as httpd:
+        logging.info("Server listening on 0.0.0.0:8080")
+        httpd.serve_forever()

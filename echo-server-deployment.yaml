@@ -4,7 +4,7 @@ metadata:
   name: echo-server-deployment
   namespace: poc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: echo-server
@@ -18,3 +18,4 @@ spec:
         image: 314201/echo-server
         ports:
         - containerPort: 8080
+        imagePullPolicy: Always
